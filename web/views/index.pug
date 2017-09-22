@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    div#content
+        h1 Welcome to #{title}
+        each item in list
+            li
+                div.title #{item.title}
+                div.desc #{item.desc}
+

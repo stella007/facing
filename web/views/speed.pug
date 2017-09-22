@@ -1,0 +1,15 @@
+doctype html
+html
+    head
+        title= title
+        script(type='type/javascript').
+            var scene = document.getElementById('scene');
+            var parallaxInstance = new Parallax(scene, {
+              relativeInput: true
+            });
+            parallaxInstance.friction(0.2, 0.2);
+            console.log(parallaxInstance);
+    body
+        div#scene(data-relative-input='true')
+            div(data-depth='0.2') My first layer!
+            div(data-depth='0.6') My second layer!

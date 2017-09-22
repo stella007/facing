@@ -1,0 +1,85 @@
+*, html, body {
+    padding: 0;
+    margin: 0;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #40bdcf;
+}
+li {
+    list-style: none;
+}
+
+#head {
+    margin: 0;
+}
+#head #line {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 120px;
+    background-color: #40bdcf;
+    border-bottom: 3px solid #f0bb49;
+    box-shadow: #a77200 0 1px 3px;
+}
+#head #logo {
+    position: absolute;
+    top: 53px;
+    left: calc(38% - 48px);
+    width: 48px;
+    height: 48px;
+    border: 13px solid #f0bb49;
+    border-radius: 50%;
+    background: #f0bb49 url("../images/logo_w.png") no-repeat center;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    box-shadow: #a77200 0 0 3px;
+}
+
+#content {
+    position: relative;
+    top: 130px;
+    margin: auto;
+    padding-top: 20px;
+    width: 88%;
+}
+
+#content li {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 0;
+    border-bottom: 1px solid #015a66;
+    -webkit-box-shadow: 0 2px 3px #72c3cf;
+    -moz-box-shadow:  0 2px 3px #72c3cf;
+    box-shadow:  0 2px 3px #72c3cf;
+}
+
+#content li .title {
+    margin: 20px 15px 5px;
+    color: #d42323;
+    font-size: medium;
+}
+
+#content li .desc {
+    margin: auto 25px 20px;
+    color: #666;
+    font-size: small;
+}
+
+#foot {
+    margin: 155px auto auto;
+    padding: 14px;
+    width: 100%;
+    background-color: #f0bb49;
+    border-top: 1px solid #a77200;
+    border-bottom: 1px solid #a77200;
+    font-size: small;
+    color: #a77200;
+    text-align: center;
+}
+
+#speed {
+    margin: 0;
+    padding: 0;
+}

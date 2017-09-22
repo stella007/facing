@@ -1,0 +1,179 @@
+doctype html
+html
+    head
+        title= title
+
+        // Behavioral Meta Data
+        meta(name='apple-mobile-web-app-capable' content='yes')
+        meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+
+        // Core Meta Data
+        meta(name="author" content="Stella Guo")
+        meta(name="description" content="A model using prallax")
+        meta(name="keywords" content="parallax,ink painting, wash painting")
+
+        // Styles
+        link(rel="stylesheet" type="text/css" href="/stylesheets/ink-styles.css")
+
+        // Favicon
+        link(rel="shortcut icon" href="/fonts/icons/favicon.ico" type="image/x-icon")
+        link(rel="shortcut icon" href="/fonts/icons/favicon.png" type="image/png")
+
+    body
+        div#fb-root
+        div#container.wrapper
+            ul#scene.scene.unselectable(data-friction-x="0.1" data-friction-y="0.1" data-scalar-x="25" data-scalar-y="15")
+                li.layer(data-depth="0.00")
+                li.layer(data-depth="0.10")
+                    div.background
+                li.layer(data-depth="0.15")
+                    div.moon
+                li.layer(data-depth="0.10")
+                    div.mountain
+                li.layer(data-depth="0.20")
+                    div.bird_far
+                li.layer(data-depth="0.25")
+                    div.bird_near
+                li.layer(data-depth="0.10")
+                    div.word
+                li.layer(data-depth="0.30")
+                    div.ship
+                li.layer(data-depth="0.20")
+                    div.shadow
+                li.layer(data-depth="0.10")
+                    div.house_far
+                li.layer(data-depth="0.10")
+                    div.house_near
+                li.layer(data-depth="0.10")
+                    div.poet
+            section#about.wrapper.about.hide.accelerate
+                div.cell.acceletate
+                    div.cables.center.accelerate
+                        div.panel.accelerate
+                            header
+                                h1 parallax
+                                    em .js
+                            p
+                                | WOW, that's deep man!
+                                strong parallax.js
+                                | reacts to the orientation of your smart device, offsetting layers depending on their depth within a scene... Oh, you don't have a smart device? No worries, if no gyroscope or motion detection hardware is available, <strong>parallax.js</strong> uses the position of your cursor instead. Radical.
+                            p
+                                | This project is a collaboration between
+                                br
+                                a(href="http://matthew.wagerfield.com" target="_blank") Matthew Wagerfield
+                                | &amp;
+                                a(href="http://cargocollective.com/whydontwetry" target="_blank") Claudio Guglieri
+                                | .
+                            div.social
+                                a(href="https://twitter.com/wagerfield" class="twitter-follow-button" data-show-count="false") Follow
+                                    span.handle @wagerfield
+                                a(href="https://twitter.com/claudioguglieri" class="twitter-follow-button" data-show-count="false") Follow
+                                    span.handle @claudioguglieri
+                            ul.links
+                                li
+                                    a(class="download" href="https://github.com/wagerfield/parallax/archive/master.zip") Download
+                                li
+                                    a(class="github" target="_blank" href="https://github.com/wagerfield/parallax") GitHub
+            button#toggle.toggle.i
+                div.cross
+                    div.x
+                    div.y
+            div#prompt.wrapper.prompt.hide.accelerate
+                div.cell.accelerate
+                    div.panel.center.unselectable.accelerate
+                        button#dismiss.dismiss
+                            div.cross
+                                div.x
+                                div.y
+                        div.tilt-scene
+                            img(class="tilt" src="/images/parallax/tilt.png")
+                        h2 Tilting is fun!
+                        p For the best experience, check out this site on a mobile or tablet equipped with a gyroscope
+                        p (iPads are the coolest)
+            footer
+                div.fb-like(data-href="http://wagerfield.github.io/parallax/" data-width="400" data-layout="button_count" data-show-faces="false" data-send="false")
+                a.twitter-share-button(href="https://twitter.com/share" data-url="http://wagerfield.github.io/parallax/" data-text="Tilting is fun! Check out #parallax.js by @wagerfield & @claudioguglieri »") Tweet
+
+        // Awwwards
+        div#awwards.left.white
+            a(href="http://www.awwwards.com" target="_blank") best websites of the world
+
+        // Scripts
+        script(src="/javascripts/libraries.min.js")
+        script(src="/javascripts/jquery.parallax.js")
+        script.
+            // jQuery Selections
+            var $html = $('html'),
+            $container = $('#container'),
+            $prompt = $('#prompt'),
+            $toggle = $('#toggle'),
+            $about = $('#about'),
+            $scene = $('#scene');
+
+                // Hide browser menu.
+            (function() {
+            setTimeout(function(){window.scrollTo(0,0);},0);
+            })();
+
+            // Setup FastClick.
+            FastClick.attach(document.body);
+
+            // Add touch functionality.
+            if (Hammer.HAS_TOUCHEVENTS) {
+                $container.hammer({drag_lock_to_axis: true});
+                _.tap($html, 'a,button,[data-tap]');
+            }
+
+            // Add touch or mouse class to html element.
+            $html.addClass(Hammer.HAS_TOUCHEVENTS ? 'touch' : 'mouse');
+
+                // Resize handler.
+            (resize = function () {
+                $scene[0].style.width = window.innerWidth + 'px';
+                $scene[0].style.height = window.innerHeight + 'px';
+                if (!$prompt.hasClass('hide')) {
+                    if (window.innerWidth < 600) {
+                        $toggle.addClass('hide');
+                    } else {
+                        $toggle.removeClass('hide');
+                    }
+                }
+            })();
+
+            // Attach window listeners.
+            window.onresize = _.debounce(resize, 200);
+            window.onscroll = _.debounce(resize, 200);
+
+            function showDetails() {
+            $about.removeClass('hide');
+            $toggle.removeClass('i');
+            }
+
+            function hideDetails() {
+            $about.addClass('hide');
+            $toggle.addClass('i');
+            }
+
+            // Listen for toggle click event.
+            $toggle.on('click', function(event) {
+            $toggle.hasClass('i') ? showDetails() : hideDetails();
+            });
+
+            // Pretty simple huh?
+            $scene.parallax();
+
+                // Check for orientation support.
+            setTimeout(function() {
+                if ($scene.data('mode') === 'cursor') {
+                    $prompt.removeClass('hide');
+                    if (window.innerWidth < 600) $toggle.addClass('hide');
+                    $prompt.on('click', function(event) {
+                        $prompt.addClass('hide');
+                        if (window.innerWidth < 600) {
+                            setTimeout(function() {
+                                $toggle.removeClass('hide');
+                            },1200);
+                        }
+                    });
+                }
+            },1000);
